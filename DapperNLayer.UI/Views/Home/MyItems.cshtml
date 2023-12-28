@@ -1,0 +1,36 @@
+﻿@using EntityLayer.Concrete
+@{
+    Layout = null;
+}
+
+@model List<Item>
+
+<h2>My Items</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Item Name</th>
+                <!-- Diğer item özellikleri eklenebilir -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ItemId</td>
+
+                    <td>@item.Name</td>
+                    <!-- Diğer item özellikleri eklenebilir -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No items found.</p>
+}

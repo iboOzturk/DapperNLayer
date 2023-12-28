@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTDapper.API", "JWTDapper.API\JWTDapper.API.csproj", "{6082A1ED-35C0-4088-9E36-DC9D5C01DB42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperNLayer.UI", "DapperNLayer.UI\DapperNLayer.UI.csproj", "{50AC3D23-E24D-473E-800E-2C095C21CA33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6082A1ED-35C0-4088-9E36-DC9D5C01DB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6082A1ED-35C0-4088-9E36-DC9D5C01DB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6082A1ED-35C0-4088-9E36-DC9D5C01DB42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50AC3D23-E24D-473E-800E-2C095C21CA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50AC3D23-E24D-473E-800E-2C095C21CA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50AC3D23-E24D-473E-800E-2C095C21CA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50AC3D23-E24D-473E-800E-2C095C21CA33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
