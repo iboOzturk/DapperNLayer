@@ -1,0 +1,30 @@
+﻿th.orange-background {
+    background-color: orange;
+    color: white;
+}
+
+@keyframes fadeInStaggered {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animated-row {
+    opacity: 0;
+    animation: fadeInStaggered 0.5s forwards;
+}
+
+    .animated-row:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+
+    .animated-row:nth-child(even) {
+        animation-delay: 0.4s;
+    }
+

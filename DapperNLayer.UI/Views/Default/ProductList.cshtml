@@ -1,0 +1,51 @@
+﻿@using EntityLayer.Concrete
+
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Views/Shared/_DefultLayout.cshtml";
+}
+
+@model List<Product>
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+
+@if (Model != null && Model.Any())
+{
+
+    <div class="container mt-2">
+        <table class="table table-bordered">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="orange-background">#</th>
+                        <th class="orange-background">Ürün Adı</th>
+                        <th class="orange-background"></th>
+                        <!-- Diğer item özellikleri eklenebilir -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="animated-row">
+                            <td>@item.ProductId</td>
+                            <td>@item.Name</td>
+                            <td><a href="#" class="btn btn-dark">Düzenle</a>
+                                <a href="#" class="btn btn-dark">Sil</a>
+                            </td>
+                            <!-- Diğer item özellikleri eklenebilir -->
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button class="btn btn-primary">Yeni Ekle</button>
+
+    </div>
+}
+else
+{
+    <p>No items found.</p>
+}

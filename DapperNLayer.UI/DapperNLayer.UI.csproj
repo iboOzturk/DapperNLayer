@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\writer\.DS_Store" />
+    <None Include="wwwroot\writer\PSD\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
     <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
   </ItemGroup>
 

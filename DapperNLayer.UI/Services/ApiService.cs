@@ -1,4 +1,5 @@
 ﻿using EntityLayer.Concrete;
+using EntityLayer.DTOs;
 using Newtonsoft.Json;
 using NuGet.Protocol.Plugins;
 using System.Net.Http.Headers;
@@ -54,6 +55,27 @@ namespace DapperNLayer.UI.Services
                 return items;
             }
 
+            return null;
+        }
+
+        public async Task<List<Product>> GetProductsAsync()
+        {
+            var response = await _httpClient.GetAsync("https://localhost:44331/api/Products");
+            if (response.IsSuccessStatusCode)
+            {
+                var result=await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Product>>(result);
+            }
+            return null;
+        }
+        public async Task<List<ProductWithCategoryDto>> GetProductsWithCategoryAsync()
+        {
+            var response = await _httpClient.GetAsync("https://localhost:44331/api/Products/ProductWithCategory");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<ProductWithCategoryDto>>(result); 
+            }
             return null;
         }
     }

@@ -22,14 +22,14 @@ builder.Services.AddMvc();
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
     {
-        x.LoginPath = "/Home/Login";
+        x.LoginPath = "/Login/Index";
     }
  );
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(100);
-    options.LoginPath = "/Home/Login/";
+    options.LoginPath = "/Login/Index/";
     options.SlidingExpiration = true;
 });
 var app = builder.Build();
@@ -51,7 +51,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Login}/{id?}");
+    name: "Login",
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();
