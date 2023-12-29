@@ -1,7 +1,10 @@
 ﻿using DapperNLayer.UI.Services;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace DapperNLayer.UI.Controllers
@@ -12,6 +15,7 @@ namespace DapperNLayer.UI.Controllers
     {
 		private readonly ApiService _apiService;
 		 CategoryService _categoryService=new CategoryService();
+		ProductService _productService=new ProductService();
 
         public DefaultController(ApiService apiService)
         {
@@ -37,7 +41,8 @@ namespace DapperNLayer.UI.Controllers
 
 			return View(items);
 		}
-		public async Task<IActionResult> ProductList()
+        #region Products
+        public async Task<IActionResult> ProductList()
 		{
 			var result = await _apiService.GetProductsAsync();
 			return View(result);
@@ -47,11 +52,43 @@ namespace DapperNLayer.UI.Controllers
             var result = await _apiService.GetProductsWithCategoryAsync();
             return View(result);
         }
-		public IActionResult CategoryList()
+		
+		public IActionResult DeleteProduct(int id)
+		{
+			_productService.DeleteProduct(id);
+			return Json(new { success = true, message = "Ürün başarıyla silindi." });
+		}
+		[HttpGet]
+		public IActionResult EditProduct(int id)
+		{
+			var result=_productService.GetProductById2(id);
+			var categoryList = _categoryService.GetCategories();
+            List < SelectListItem > categories= (from x in categoryList
+                                                 select new SelectListItem
+                                                 {
+                                                     Text = x.Name.ToString(),
+                                                     Value = x.CategoryId.ToString()
+                                                 }).ToList();
+            ViewBag.Categories = categories;
+
+            return View(result);
+		}
+		[HttpPost]
+		public IActionResult EditProduct(Product product)
+		{
+			_productService.UpdateProduct(product);
+			return RedirectToAction("ProductWithCategoryList", "Default");
+		}
+
+        #endregion
+
+        #region Category
+        public IActionResult CategoryList()
 		{
 			var result = _categoryService.GetCategories();
 			return View(result);
 		}
+        #endregion
         public async Task<IActionResult> LogOut()
 		{
 			await HttpContext.SignOutAsync();

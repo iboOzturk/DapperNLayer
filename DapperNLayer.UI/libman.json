@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "dist/jquery.js",
+        "dist/jquery.min.js",
+        "src/ajax.js",
+        "src/jquery.js",
+        "src/ajax/jsonp.js",
+        "src/ajax/load.js",
+        "src/ajax/script.js",
+        "src/ajax/xhr.js",
+        "src/ajax/var/location.js",
+        "src/ajax/var/nonce.js",
+        "src/ajax/var/rquery.js"
+      ]
+    }
+  ]
+}

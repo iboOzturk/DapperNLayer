@@ -7,48 +7,50 @@
 
 @model List<ProductWithCategoryDto>
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
-<link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
-<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-<link href="~/css/style.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="~/lib/jquery/src/ajax.js"></script>
 
 @if (Model != null && Model.Any())
 {
-
-    <div class="container mt-2">
-        <table class="table table-bordered">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="orange-background">#</th>
-                        <th class="orange-background">Ürün Adı</th>
-                        <th class="orange-background">Açıklama</th>
-                        <th class="orange-background">Açıklama</th>
-                        <th class="orange-background">Kategori</th>
-                        <th class="orange-background"></th>
-                        <!-- Diğer item özellikleri eklenebilir -->
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr class="animated-row">
-                            <td>@item.ProductId</td>
-                            <td>@item.Name</td>
-                            <td>@item.Description</td>
-                            <td>@item.Category.Name</td>
-                            <td>
-                                <a href="#" class="btn btn-dark">Düzenle</a>
-                                <a href="#" class="btn btn-dark">Sil</a>
-                            </td>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Kategoriler</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th >#</th>
+                            <th >Ürün Adı</th>
+                            <th >Açıklama</th>
+                            <th >Kategori</th>
+                            <th>Action</th>
                             <!-- Diğer item özellikleri eklenebilir -->
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <button class="btn btn-primary">Yeni Ekle</button>
-
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ProductId</td>
+                                <td>@item.Name</td>
+                                <td style="text-align: left;align-content:flex-start;align-items:flex-start">
+                                    <p style="width:15rem; overflow: hidden; white-space: pre-wrap; text-overflow: ellipsis;">
+                                        @item.Description
+                                </p></td>
+                                <td>@item.Category.Name</td>
+                                <td>
+                                    <button class="btn btn-info" onclick="window.location.href='/Default/EditProduct/@item.ProductId'">Düzenle</button>
+                                    <button class="btn btn-danger delete-btn" data-product-id="@item.ProductId">Sil</button>
+                                </td>
+                                <!-- Diğer item özellikleri eklenebilir -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Yeni Ekle</button>
+            </div>
+        </div>
     </div>
 }
 else
@@ -56,3 +58,33 @@ else
     <p>No items found.</p>
 }
 
+
+<script>
+    $(document).ready(function () {
+        $(".delete-btn").on("click", function () {
+            var row = $(this).closest("tr");
+            var productId = $(this).data("product-id");
+
+            if (confirm("Bu ürünü silmek istediğinizden emin misiniz?")) {
+                $.ajax({
+                    url: "@Url.Action("DeleteProduct", "Default")",
+                    type: "POST",
+                    data: { id: productId },
+                    success: function (response) {
+                        if (response.success) {                       
+
+                            // Silinen satırı tablodan kaldırma
+                            row.remove();
+                        } else {
+                            // Hata durumunda kullanıcıya bildirim gösterilebilir
+                            alert("Ürün silinirken bir hata oluştu.");
+                        }
+                    },
+                    error: function () {
+                        alert("Sunucu hatası: İsteği tamamlamak mümkün değil.");
+                    }
+                });
+            }
+        });
+    });
+</script>
