@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DapperNLayer.UI.Controllers
 {
@@ -24,9 +25,10 @@ namespace DapperNLayer.UI.Controllers
         }
 		public async Task<IActionResult> MyItems()
 		{
-			string token = HttpContext.Session.GetString("JwtToken");
+			//string token = HttpContext.Session.GetString("JwtToken");
+			string token = HttpContext.User.FindFirst(ClaimTypes.UserData)?.Value;
 
-			if (string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(token))
 			{
 				return RedirectToAction("Index","Login");
 			}

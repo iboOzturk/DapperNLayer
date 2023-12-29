@@ -6,6 +6,8 @@ using System.Security.Claims;
 
 namespace DapperNLayer.UI.Controllers
 {
+    [AllowAnonymous]
+
     public class LoginController : Controller
     {
         private readonly ApiService _apiService;
@@ -13,16 +15,13 @@ namespace DapperNLayer.UI.Controllers
         public LoginController(ApiService apiService)
         {
             _apiService = apiService;
-        }
-
-        [AllowAnonymous]
+        }      
 
         public IActionResult Index()
         {
             return View();
         }
         
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Index(string username, string password)
         {
@@ -33,7 +32,9 @@ namespace DapperNLayer.UI.Controllers
                 HttpContext.Session.SetString("JwtToken", token);
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, username)
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.UserData, token),
+
                 };
                 var useridentity = new ClaimsIdentity(claims, "a");
                 ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
