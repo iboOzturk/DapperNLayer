@@ -1,0 +1,28 @@
+﻿@using EntityLayer.Concrete
+@model Category
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Views/Shared/_DefultLayout.cshtml";
+}
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h1>Kategori Ekle</h1>
+                <form method="post">
+                    <input type="hidden" asp-for="CategoryId" />
+                    <label>Kategori Adı</label>
+                    <input type="text" asp-for="Name" class="form-control" />
+                    <br />                  
+
+                    <button class="btn btn-success">Ekle</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+

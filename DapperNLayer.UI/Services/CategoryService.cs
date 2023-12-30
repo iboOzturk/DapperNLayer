@@ -16,5 +16,26 @@ namespace DapperNLayer.UI.Services
             return result;
         }
 
+        public bool AddCategory(Category category)
+        {
+            var result = categoryManager.Add(category);
+            return result;
+        }
+        public bool RemoveCategory(int id)
+        {
+            var result=categoryManager.Delete(id);
+            return result;
+        }
+        public bool UpdateCategory(Category category)
+        {
+            var result = categoryManager.Update(category);
+            return result;
+        }
+        public Category GetByIdCategory(int id)
+        {
+            var category = categoryManager.GetById(id);
+            return category;
+        }
+
     }
 }

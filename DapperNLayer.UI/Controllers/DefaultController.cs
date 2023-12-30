@@ -113,6 +113,50 @@ namespace DapperNLayer.UI.Controllers
 			var result = _categoryService.GetCategories();
 			return View(result);
 		}
+
+        [HttpGet]
+        public IActionResult AddCategory()
+        {           
+            return View();
+        }
+        [HttpPost]
+		public IActionResult AddCategory(Category category) 
+		{
+			var result=_categoryService.AddCategory(category);
+			if (result)
+			{
+				return RedirectToAction("CategoryList");	
+			}
+			return View();
+		}
+
+		public IActionResult DeleteCategory(int id)
+		{
+			var result= _categoryService.RemoveCategory(id);
+			if (result)
+			{
+                return Json(new { success = true, message = "Kategori başarıyla silindi." });
+            }
+			return Json(new { success = false, message = "Kategori silinemedi." });
+        }
+
+		[HttpGet]
+		public IActionResult EditCategory(int id)
+		{
+			var values=_categoryService.GetByIdCategory(id);
+			return View(values);
+		}
+        [HttpPost]
+        public IActionResult EditCategory(Category category)
+        {
+			var result=_categoryService.UpdateCategory(category);
+			if (result)
+			{
+				return RedirectToAction("CategoryList");
+			}
+			return View();
+        }
+
         #endregion
         public async Task<IActionResult> LogOut()
 		{
