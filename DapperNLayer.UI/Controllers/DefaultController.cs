@@ -52,8 +52,33 @@ namespace DapperNLayer.UI.Controllers
             var result = await _apiService.GetProductsWithCategoryAsync();
             return View(result);
         }
-		
-		public IActionResult DeleteProduct(int id)
+
+		[HttpGet]
+		public IActionResult AddProduct()
+		{
+            var categoryList = _categoryService.GetCategories();
+            List<SelectListItem> categories = (from x in categoryList
+                                               select new SelectListItem
+                                               {
+                                                   Text = x.Name.ToString(),
+                                                   Value = x.CategoryId.ToString()
+                                               }).ToList();
+            ViewBag.Categories = categories;
+            return View();
+		}
+        [HttpPost]
+        public IActionResult AddProduct(Product product)
+        {
+			product.CreateDate= DateTime.Now;
+			var result=_productService.AddProduct(product);
+			if (result)
+			{
+				return RedirectToAction("ProductWithCategoryList", "Default");
+			}
+            return View();
+        }
+
+        public IActionResult DeleteProduct(int id)
 		{
 			_productService.DeleteProduct(id);
 			return Json(new { success = true, message = "Ürün başarıyla silindi." });
@@ -61,7 +86,7 @@ namespace DapperNLayer.UI.Controllers
 		[HttpGet]
 		public IActionResult EditProduct(int id)
 		{
-			var result=_productService.GetProductById2(id);
+			var result=_productService.GetProductById(id);
 			var categoryList = _categoryService.GetCategories();
             List < SelectListItem > categories= (from x in categoryList
                                                  select new SelectListItem

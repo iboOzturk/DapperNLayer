@@ -19,7 +19,13 @@ namespace DapperNLayer.UI.Services
           
         }
 
-        public Product GetProductById2(int id) 
+        public bool AddProduct(Product product)
+        {
+            var result=productManager.Add(product);
+            return result;
+        }
+
+        public Product GetProductById(int id) 
         {  
             return productManager.GetById(id); 
         }
