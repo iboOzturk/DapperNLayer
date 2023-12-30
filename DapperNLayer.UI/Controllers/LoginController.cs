@@ -19,7 +19,12 @@ namespace DapperNLayer.UI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+			if (ViewBag.ErrorMessage != null)
+			{
+				TempData["ErrorMessage"] = ViewBag.ErrorMessage;
+				ViewBag.ErrorMessage = null;
+			}
+			return View();
         }
         
         [HttpPost]
@@ -41,9 +46,16 @@ namespace DapperNLayer.UI.Controllers
                 await HttpContext.SignInAsync(principal);
                 return RedirectToAction("MyItems","Default");
             }
+            else
+            {
+				ViewBag.ErrorMessage = "Username veya şifre yanlış";
 
-            ViewBag.ErrorMessage = "Invalid credentials";
-            return View();
+			}
+			
+		    TempData["ErrorMessage"] = ViewBag.ErrorMessage;
+			ViewBag.ErrorMessage = null;
+
+			return RedirectToAction("Index");
         }
     }
 }

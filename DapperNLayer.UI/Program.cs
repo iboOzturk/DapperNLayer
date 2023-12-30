@@ -16,7 +16,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<ApiService>();
 builder.Services.AddSession();
 
-builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddMvc();
 
 builder.Services.AddAuthentication(

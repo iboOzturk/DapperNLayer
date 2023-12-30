@@ -29,7 +29,7 @@ namespace JWTDapper.API.Token
                 );
                 if (user == null)
                 {
-                    return "Kullanıcı bulunamadı";
+                    return null;
                 }
 
                 var token = GenerateJwtToken(user.UserId, user.UserName);

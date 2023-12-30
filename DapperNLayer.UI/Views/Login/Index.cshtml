@@ -1,6 +1,7 @@
 ﻿@model LoginViewModel
 @{
 	Layout = null;
+	
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +57,13 @@
 						<button class="login100-form-btn">
 							Giriş
 						</button>
+					</div>
+					<div class="container mt-3">
+						@if (TempData["ErrorMessage"] != null)
+						{
+							<div class="text-danger">@TempData["ErrorMessage"]</div>
+						}
+
 					</div>
 
 				</form>

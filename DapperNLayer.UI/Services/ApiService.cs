@@ -14,13 +14,11 @@ namespace DapperNLayer.UI.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ApiService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+        public ApiService(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClient;            
             _httpClient.BaseAddress = new Uri("https://localhost:44358/api/");
-            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -33,7 +31,6 @@ namespace DapperNLayer.UI.Services
             {
                 var result = await response.Content.ReadAsStringAsync();
                 var token = JsonConvert.DeserializeObject<LoginResponse>(result).token;
-                _httpContextAccessor.HttpContext.Session.SetString("JwtToken", token);
 
                 return token;
             }
